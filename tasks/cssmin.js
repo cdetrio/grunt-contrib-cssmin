@@ -19,6 +19,10 @@ module.exports = function(grunt) {
     this.files.forEach(function(f) {
       var valid = f.src.filter(function(filepath) {
         // Warn on and remove invalid source files (if nonull was set).
+        if (grunt.file.isDir(filepath)) {
+          grunt.log.writeln('skipping directory ' + filepath);
+          return false;
+        }
         if (!grunt.file.exists(filepath)) {
           grunt.log.warn('Source file "' + filepath + '" not found.');
           return false;
